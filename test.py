@@ -6,11 +6,13 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import tkinter as tk
+from time import sleep
 
 # drug1 = input("First drug: ")
 # drug2 = input("Second drug: ")
-drug1 = 'warfarin'
-drug2 = 'aspir 81'
+# drug1 = 'warfarin'
+# drug2 = 'aspir 81'
 
 def find_drug_interactions():
     driver_path = "C:/path/to/your/edgedriver.exe"
@@ -49,8 +51,50 @@ def find_drug_interactions():
     # close the browser after you press Enter
     driver.quit()
 
-# def print_drug_interactions():
-    
+def get_drug_names():
+    global drug1
+    global drug2
+    drug1 = drug_entry1.get()
+    drug2 = drug_entry2.get()
+    print("First drug:", drug1)
+    print("Second drug:", drug2)
+    # You can process the drug names here as needed
+    sleep(2)
+    root.destroy()
 
 
-find_drug_interactions()
+# Create the main window
+root = tk.Tk()
+root.title("Drug Interaction Checker")
+root.geometry("600x400")
+
+# Create frames for better organization
+frame1 = tk.Frame(root, padx=20, pady=10)
+frame1.pack()
+frame2 = tk.Frame(root, padx=20, pady=10)
+frame2.pack()
+frame3 = tk.Frame(root, padx=20, pady=10)
+frame3.pack()
+
+# Create labels and entry widgets for drug inputs
+drug_label1 = tk.Label(frame1, text="First drug:")
+drug_label1.grid(row=0, column=0, sticky='w')
+drug_entry1 = tk.Entry(frame1, width=30)
+drug_entry1.grid(row=0, column=1)
+
+drug_label2 = tk.Label(frame1, text="Second drug:")
+drug_label2.grid(row=1, column=0, sticky='w')
+drug_entry2 = tk.Entry(frame1, width=30)
+drug_entry2.grid(row=1, column=1)
+
+# Create a button to process the drug names
+submit_button = tk.Button(frame2, text="Check Interactions", command=get_drug_names)
+submit_button.pack()
+spreadsheet_button = tk.Button(frame3, text="Create Spreadsheet", command=create_spreadsheet)
+spreadsheet_button.pack()
+
+# Run the main event loop
+root.mainloop()    
+
+
+# find_drug_interactions()
