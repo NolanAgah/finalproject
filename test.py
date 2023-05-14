@@ -37,8 +37,16 @@ def find_drug_interactions():
 
     # click the "Check Interactions" button
     check_interactions_button.click()
-
+    
     parent_element = driver.find_element(By.XPATH, "//*[contains(@class, 'interactions-reference')]")
+
+    type_interaction_major = driver.find_element_by_xpath('//div[@class="ddc-form-check"]//label//span')
+
+    # Extract the text from the element
+    major_text = type_interaction_major.text
+
+    # Print the extracted text
+    print(f"Extracted text: {major_text}")
 
     # Find the second child <p> element using XPath
     child_elements = parent_element.find_elements(By.XPATH, ".//p")
@@ -90,11 +98,11 @@ drug_entry2.grid(row=1, column=1)
 # Create a button to process the drug names
 submit_button = tk.Button(frame2, text="Check Interactions", command=get_drug_names)
 submit_button.pack()
-spreadsheet_button = tk.Button(frame3, text="Create Spreadsheet", command=create_spreadsheet)
-spreadsheet_button.pack()
+# spreadsheet_button = tk.Button(frame3, text="Create Spreadsheet", command=create_spreadsheet)
+# spreadsheet_button.pack()
 
 # Run the main event loop
 root.mainloop()    
 
 
-# find_drug_interactions()
+find_drug_interactions()
